@@ -1,0 +1,4 @@
+# Project exclude paths
+/algorithms/target/
+/codewars/target/
+/sandbox/target/
