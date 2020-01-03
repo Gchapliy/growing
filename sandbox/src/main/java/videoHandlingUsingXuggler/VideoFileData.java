@@ -1,14 +1,17 @@
-package videoHandling;
+package videoHandlingUsingXuggler;
 
 import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IStream;
 import com.xuggle.xuggler.IStreamCoder;
 
-public class VideoProcessing {
-    public static void main(String[] args) {
+import java.util.concurrent.TimeUnit;
+
+public class VideoFileData {
+    public static void showVideoFileData(String filePath) {
         IContainer container = IContainer.make();
-        int result = container.open("src\\main\\resources\\test.mp4", IContainer.Type.READ, null);
+
+        int result = container.open(filePath, IContainer.Type.READ, null);
 
         int numStreams = container.getNumStreams();
 
@@ -26,21 +29,25 @@ public class VideoProcessing {
 
         System.out.println("Number of streams: " + numStreams);
 
-        System.out.println("Duration (ms): " + duration);
+        String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(duration),
+                TimeUnit.MILLISECONDS.toMinutes(duration) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration)),
+                TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
 
-        System.out.println("File Size (bytes): " + fileSize);
+        System.out.println("Duration: " + hms);
 
-        System.out.println("Bit Rate: " + bitRate);
+        System.out.println("File Size: " + fileSize / 1_048_576 + "mb");
+
+        System.out.println("Bit Rate: " + bitRate / 1024);
 
         // iterate through the streams to print their meta data
 
         for (int i = 0; i < numStreams; i++) {
 
-        // find the stream object
+            // find the stream object
 
             IStream stream = container.getStream(i);
 
-        // get the pre-configured decoder that can decode this stream;
+            // get the pre-configured decoder that can decode this stream;
 
             IStreamCoder coder = stream.getStreamCoder();
 

@@ -1,7 +1,7 @@
 package katas;
 
 /*
-dataand data1 are two strings with rainfall records of a few cities for months from January to December.
+data and data1 are two strings with rainfall records of a few cities for months from January to December.
 The records of towns are separated by \n. The name of each town is followed by :.
 
 data and towns can be seen in "Your Test Cases:".
