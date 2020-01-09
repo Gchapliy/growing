@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class TwoSum {
     public static void main(String[] args) {
-        int[] a = new int[1_000_000];
+        int[] a = new int[10000];
         fillRandomValues(a);
         int result;
 
@@ -33,7 +33,7 @@ public class TwoSum {
     public static int quadraticTwoSum(int[] a){
         int counter = 0;
 
-        for (int i = 0; i < a.length; i++) {
+        for (int i = 0; i < a.length - 1; i++) {
             for (int j = i + 1; j < a.length; j++) {
                 if(a[i] + a[j] == 0)
                     counter++;
