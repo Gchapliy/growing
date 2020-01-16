@@ -1,4 +1,4 @@
-package someTasks.tojson.objectexample;
+package someTasks.tojson.objectsample;
 
 import lombok.Builder;
 

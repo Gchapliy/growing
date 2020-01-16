@@ -1,7 +1,7 @@
 package someTasks.tojson;
 
 import com.google.gson.Gson;
-import someTasks.tojson.objectexample.ArtifactDto;
+import someTasks.tojson.objectsample.ArtifactDto;
 
 public class JavaObjectToJSON {
     public static void main(String[] args) {
