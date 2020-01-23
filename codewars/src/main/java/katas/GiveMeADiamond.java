@@ -37,6 +37,15 @@ public class GiveMeADiamond {
     }
 
     public static String print(int n){
+        StringBuilder filler = new StringBuilder();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            filler.append("-");
+        }
+        int k = n;
+        while (k > 1){
+            //filler.insert(0, filler)
+        }
 
         return null;
     }
