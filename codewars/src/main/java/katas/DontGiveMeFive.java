@@ -22,11 +22,15 @@ public class DontGiveMeFive {
         System.out.println(dontGiveMeFive(1,9));
         System.out.println(dontGiveMeFive(-5,17));
         System.out.println(dontGiveMeFive(4,17));
+        System.out.println(dontGiveMeFive(-4, 18));
     }
 
     public static int dontGiveMeFive(int start, int end)
     {
         int dif = Math.abs(end - start) + 1;
-        return dif - (dif / 5 - dif / 10);
+        System.out.println("dif: " + dif);
+        System.out.println("dif / 5: " + dif / 5);
+        System.out.println("start / 5: " + Math.abs(start / 5));
+        return dif - ((dif / 5) - Math.abs(start / 5));
     }
 }
