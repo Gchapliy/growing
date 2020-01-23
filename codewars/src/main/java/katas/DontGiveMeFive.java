@@ -27,10 +27,11 @@ public class DontGiveMeFive {
 
     public static int dontGiveMeFive(int start, int end)
     {
-        int dif = Math.abs(end - start) + 1;
-        System.out.println("dif: " + dif);
-        System.out.println("dif / 5: " + dif / 5);
-        System.out.println("start / 5: " + Math.abs(start / 5));
-        return dif - ((dif / 5) - Math.abs(start / 5));
+        int k = 0;
+        for (int i = start; i <= end; i++) {
+            if(!Integer.toString(i).contains("5"))k++;
+        }
+
+        return k;
     }
 }
