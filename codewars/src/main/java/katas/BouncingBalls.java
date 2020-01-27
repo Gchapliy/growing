@@ -1,5 +1,7 @@
 package katas;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -34,7 +36,7 @@ public class BouncingBalls {
     }
 
     public static int bouncingBall(double h, double bounce, double window) {
-        if(h < 0 || bounce < 0 || bounce > 1 || window < 0 || window > h)
+        if(h <= 0 || bounce <= 0 || bounce >= 1 || window < 0 || window > h)
             return -1;
 
         int result = 1;
