@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="algorithms" />
         <module name="codewars" />
+        <module name="dynamicProgramming" />
         <module name="sandbox" />
       </profile>
     </annotationProcessing>
