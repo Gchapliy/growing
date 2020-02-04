@@ -3,8 +3,11 @@ package classictasks;
 import java.util.Arrays;
 
 public class Fibonacci {
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(fib(6)));
+    public static void main(String[] args)
+    {
+        int[] result = fib(5);
+        System.out.println(Arrays.toString(result));
+        System.out.println(Arrays.stream(result).sum());
     }
 
     public static int[] fib(int n){
