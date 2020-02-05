@@ -2,6 +2,9 @@ package classictasks;
 
 import java.util.Arrays;
 
+/**
+ * Realization Fibonacci algorithm following dynamic programming principles
+ */
 public class Fibonacci {
     public static void main(String[] args)
     {
