@@ -9,8 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="dynamicProgramming" />
         <module name="codewars" />
-        <module name="algorithms" />
         <module name="sandbox" />
+        <module name="algorithms" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
