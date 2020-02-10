@@ -22,6 +22,10 @@ public class HammingNumber {
     private static boolean[] isRight = new boolean[2];
     private static int pointer = 0;
 
+    public static void main(String[] args) {
+        System.out.println(hamming(1000));
+    }
+
     public static long hamming(int n) {
         int i = 0;
         int j = 0;
@@ -43,7 +47,7 @@ public class HammingNumber {
             if (i > pointer) {
                 pointer++;
                 if (pointer > isRight.length - 1) {
-                    isRight = Arrays.copyOf(isRight, isRight.length * 2);
+                    isRight = Arrays.copyOf(isRight, (int) (isRight.length * 1.5));
                 }
             }
         }
