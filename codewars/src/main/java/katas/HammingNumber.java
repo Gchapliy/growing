@@ -19,27 +19,12 @@ import java.util.Arrays;
  * Your code should be able to compute all of the smallest 5,000 (Clojure: 2000) Hamming numbers without timing out.
  */
 public class HammingNumber {
-    private static boolean[] isRight = new boolean[2_000_000_000];
+    private static boolean[] isRight = new boolean[2];
     private static int pointer = 0;
-    private static int previousResult = 0;
-    private static int previousValue = 0;
-
-    public static void main(String[] args) {
-        long strt = System.nanoTime();
-        for (int i = 1; i < 5000; i++) {
-            System.out.println(hamming(i));
-        }
-        long fin = System.nanoTime();
-
-        System.out.println("time: " + (double) (fin - strt) / 1_000_000_000); //~7sec
-    }
 
     public static long hamming(int n) {
-        int i = n > pointer ? 0 : previousResult;
-        int j = n > pointer ? 0 : previousValue;
-        previousValue = n;
-
-        System.out.print("for " + n + " is: ");
+        int i = 0;
+        int j = 0;
 
         while (j < n) {
             i++;
@@ -49,20 +34,20 @@ public class HammingNumber {
                     j++;
                 }
                 continue;
-            }else if(isHamming(i, i, isRight)) {
+            }
+            if (isHamming(i, i, isRight)) {
                 j++;
                 isRight[pointer] = true;
             }
 
             if (i > pointer) {
                 pointer++;
-                /*if (pointer > isRight.length - 1) {
-                    isRight = Arrays.copyOf(isRight, (int)(isRight.length *  1.2));
-                }*/
+                if (pointer > isRight.length - 1) {
+                    isRight = Arrays.copyOf(isRight, isRight.length * 2);
+                }
             }
         }
 
-        previousResult = i;
         return i;
     }
 
