@@ -11,6 +11,7 @@
       <set>
         <option value="$PROJECT_DIR$/algorithmes/pom.xml" />
         <option value="$PROJECT_DIR$/codewars/pom.xml" />
+        <option value="$PROJECT_DIR$/dynamicProgramming/pom.xml" />
       </set>
     </option>
   </component>

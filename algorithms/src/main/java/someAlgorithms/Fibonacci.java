@@ -1,4 +1,4 @@
-package classictasks;
+package someAlgorithms;
 
 import java.util.Arrays;
 

@@ -7,15 +7,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dynamicProgramming" />
         <module name="codewars" />
-        <module name="algorithms" />
         <module name="sandbox" />
+        <module name="algorithms" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="algorithmes" target="1.5" />
       <module name="codewars" target="1.8" />
+      <module name="dynamicProgramming" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
