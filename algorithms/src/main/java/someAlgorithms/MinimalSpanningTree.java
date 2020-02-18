@@ -1,5 +1,7 @@
 package someAlgorithms;
 
+import cern.colt.Arrays;
+
 /**
  * Kraskal algorithm
  */
@@ -24,7 +26,34 @@ public class MinimalSpanningTree {
             }
         }
 
+        System.out.println(Arrays.toString(edges));
 
+        for (int i = 1; i < edges.length; i++) {
+            String connectors = "";
+            boolean isCycle = false;
+            for (int j = 0; j < i; j++) {
+                if(edges[j].isEmpty())continue;
+                if(edges[j].contains(edges[i].split("")[0])){
+                    if(connectors.contains(edges[i].split("")[1])){
+                        isCycle = true;
+                        break;
+                    }
+                    connectors += edges[i].split("")[1];
+                }
+                if(edges[j].contains(edges[i].split("")[1])){
+                    if(connectors.contains(edges[i].split("")[0])){
+                        isCycle = true;
+                        break;
+                    }
+                    connectors += edges[i].split("")[0];
+                }
+            }
+            if(isCycle){
+               edges[i] = "";
+            }
+        }
+
+        System.out.println(Arrays.toString(edges));
         return null;
     }
 }
