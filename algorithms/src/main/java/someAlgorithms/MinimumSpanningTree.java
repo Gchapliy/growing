@@ -17,18 +17,7 @@ public class MinimumSpanningTree {
 
     public static String[] getMinimumSpanningTree(String[] edges, int[] weights) {
         //Sort graph by weights
-        for (int i = 0; i < weights.length - 1; i++) {
-            for (int j = i + 1; j < weights.length; j++) {
-                if (weights[j] < weights[i]) {
-                    int tmp = weights[i];
-                    weights[i] = weights[j];
-                    weights[j] = tmp;
-                    String sTmp = edges[i];
-                    edges[i] = edges[j];
-                    edges[j] = sTmp;
-                }
-            }
-        }
+        mergeSort(weights, edges, 0, weights.length);
 
         String[] result = new String[edges.length];
         Arrays.fill(result, "");
@@ -41,7 +30,7 @@ public class MinimumSpanningTree {
             findConnectors(edges, i - 1, a, connectors);
             findConnectors(edges, i - 1, b, connectors);
 
-            if(connectors.stream()
+            if (connectors.stream()
                     .filter(f -> Collections.frequency(connectors, f) > 1)
                     .collect(Collectors.toSet()).isEmpty())
                 result[i] = edges[i];
@@ -50,16 +39,36 @@ public class MinimumSpanningTree {
         return Arrays.stream(result).filter(f -> !f.isEmpty()).toArray(String[]::new);
     }
 
-    private static void findConnectors(String[] edges, int position, String target, List<String> connectors){
-        if(position < 0) return;
-        if(edges[position].contains(target)){
+    private static void mergeSort(int[] weights, String[] edges, int low, int high) {
+        if (high - low < 2) return;
+        int mid = (low + high) >>> 1;
+        mergeSort(weights, edges, low, mid);
+        mergeSort(weights, edges, mid, high);
+        int[] b = Arrays.copyOfRange(weights, low, mid);
+        String[] c = Arrays.copyOfRange(edges, low, mid);
+        for (int i = low, j = mid, k = 0; k < b.length; i++) {
+            if (j == high || b[k] <= weights[j]) {
+                int m = k++;
+                weights[i] = b[m];
+                edges[i] = c[m];
+            } else {
+                int p = j++;
+                weights[i] = weights[p];
+                edges[i] = edges[p];
+            }
+        }
+    }
+
+    private static void findConnectors(String[] edges, int position, String target, List<String> connectors) {
+        if (position < 0) return;
+        if (edges[position].contains(target)) {
             String a = edges[position].split("")[0];
             String b = edges[position].split("")[1];
-            if(a.equals(target)){
+            if (a.equals(target)) {
                 connectors.add(b);
                 findConnectors(edges, position - 1, b, connectors);
             }
-            if(b.equals(target)){
+            if (b.equals(target)) {
                 connectors.add(a);
                 findConnectors(edges, position - 1, a, connectors);
             }
