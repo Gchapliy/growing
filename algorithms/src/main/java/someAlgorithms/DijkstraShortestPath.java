@@ -13,6 +13,7 @@ public class DijkstraShortestPath {
         int[][] graph = new int[4][4];
         fillGraphRandom(graph);
         displayGraph(graph);
+
         int[][] dijkstra = dijkstra(graph);
         displayGraph(dijkstra);
 
