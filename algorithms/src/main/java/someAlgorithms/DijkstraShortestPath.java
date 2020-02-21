@@ -16,10 +16,13 @@ public class DijkstraShortestPath {
         int[][] dijkstra = dijkstra(graph);
         displayGraph(dijkstra);
 
-        int[] path = new int[10];
+        int[] path = new int[graph.length * 2];
         path[0] = dijkstra[0][0];
 
-        System.out.println("Shortest path -> " + Arrays.toString(findPath(path, 1, dijkstra, 0, 0)));
+        path = findPath(path, 1, dijkstra, 0, 0);
+
+        System.out.println("Shortest path -> " + Arrays.toString(path));
+        System.out.println("Weight -> " + Arrays.stream(path).sum());
     }
 
     private static void fillGraphRandom(int[][] graph) {
@@ -67,23 +70,23 @@ public class DijkstraShortestPath {
         findVertices(graph, result, x + 1, y, x, y);
     }
 
-    //TODO: ArrayIndexOutOfBoundsException
     private static int[] findPath(int[] path, int position, int[][] graph, int x, int y) {
         if (y == graph.length) return path;
         if (x == graph.length) return path;
 
         if(x < graph.length - 1 && y < graph.length - 1){
+            int xTemp = x;
             x = graph[x][y + 1] < graph[x + 1][y] ? x : x + 1;
-            y = graph[x][y + 1] < graph[x + 1][y] ? y + 1 : y;
+            y = graph[xTemp][y + 1] < graph[xTemp + 1][y] ? y + 1 : y;
 
             path[position] = graph[x][y];
             findPath(path, position + 1, graph, x, y);
         } else if(x < graph.length - 1 && y == graph.length - 1) {
-            x = graph[x][y] < graph[x + 1][y] ? x : x + 1;
+            x = x + 1;
             path[position] = graph[x][y];
             findPath(path, position + 1, graph, x, y);
         } else if(y < graph.length - 1 && x == graph.length - 1) {
-            y = graph[x][y + 1];
+            y = y + 1;
             path[position] = graph[x][y];
             findPath(path, position + 1, graph, x, y);
         }
