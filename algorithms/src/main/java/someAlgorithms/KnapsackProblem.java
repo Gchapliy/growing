@@ -25,6 +25,7 @@ public class KnapsackProblem {
 
                     d[i + 1][j + w[i + 1]] = Math.max(d[i + 1][j + w[i + 1]], d[i][j] + c[i + 1]);
                     if (j + w[i + 1] == W){
+                        //TODO: path is wrong
                         p[position] = w[i + 1];
                         position++;
                     }
