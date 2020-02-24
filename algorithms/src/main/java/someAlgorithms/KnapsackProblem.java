@@ -19,7 +19,7 @@ public class KnapsackProblem {
         for (int i = 0; i < w.length - 1; i++) {
             for (int j = 0; j <= W; j++) {
                 if (j + w[i + 1] <= W) {
-                    d[i + 1][j + w[i + 1]] = Math.max(d[i + 1][j + w[i + 1]], d[i][j] + w[i + 1]);
+                    d[i + 1][j + w[i + 1]] = Math.max(d[i + 1][j + w[i + 1]], d[i][j] + c[i + 1]);
                 }
                 d[i + 1][j] = Math.max(d[i + 1][j], d[i][j]);
             }
