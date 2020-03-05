@@ -35,12 +35,11 @@ public class XlsParser {
             for (Cell cell: row) {
                 HSSFCell c = (HSSFCell) cell;
                 HSSFColor color = c.getCellStyle().getFont(myExcelBook).getHSSFColor(myExcelBook);
+                short colorShort = c.getCellStyle().getFont(myExcelBook).getColor();
                 if(!c.getStringCellValue().isEmpty())
                     System.out.println("cellNum: " + c.getColumnIndex()
                             + " value: " + c.getStringCellValue());
-                    if(color != null){
-                        System.out.print(" color: " + color.getHexString() + "\n");
-                    }
+                        System.out.print("  color: " + colorShort + "\n");
             }
         }
 
