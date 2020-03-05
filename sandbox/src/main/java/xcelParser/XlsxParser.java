@@ -7,40 +7,42 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Iterator;
 
-public class XcelParser {
+public class XlsxParser {
     public static void main(String[] args) {
-        String path = "sandbox\\src\\main\\resources\\testXls.xls";
+        String path = "sandbox\\src\\main\\resources\\testXlsx.xlsx";
 
         parseXls(new File(path));
     }
 
     private static void parseXls(File file) {
-        HSSFWorkbook myExcelBook = null;
+        XSSFWorkbook myExcelBook = null;
         try {
-            myExcelBook = new HSSFWorkbook(new FileInputStream(file));
+            myExcelBook = new XSSFWorkbook(new FileInputStream(file));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        HSSFSheet myExcelSheet = myExcelBook.getSheet("Лист1");
+        XSSFSheet myExcelSheet = myExcelBook.getSheet("Лист1");
         for (Row row : myExcelSheet) {
-            HSSFRow r = (HSSFRow)row;
 
-            System.out.println("rowNum: " + r.getRowNum());
+            System.out.println("rowNum: " + row.getRowNum());
             for (Cell cell: row) {
-                HSSFCell c = (HSSFCell) cell;
-                HSSFColor color = c.getCellStyle().getFont(myExcelBook).getHSSFColor(myExcelBook);
+                XSSFCell c = (XSSFCell) cell;
+                XSSFColor color = c.getCellStyle().getFont().getXSSFColor();
                 if(!c.getStringCellValue().isEmpty())
                     System.out.println("cellNum: " + c.getColumnIndex()
                             + " value: " + c.getStringCellValue());
-                    if(color != null){
-                        System.out.print(" color: " + color.getHexString() + "\n");
-                    }
+                if(color != null){
+                    System.out.print(" color: " + color.getARGBHex() + "\n");
+                }
             }
         }
 
@@ -58,5 +60,4 @@ public class XcelParser {
 
         return true;
     }
-
 }
