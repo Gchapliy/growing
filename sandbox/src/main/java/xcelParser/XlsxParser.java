@@ -19,8 +19,15 @@ import java.io.IOException;
 public class XlsxParser {
     public static void main(String[] args) {
         String path = "sandbox\\src\\main\\resources\\testXlsx.xlsx";
-
-        parseXls(new File(path));
+        File file = new File(path);
+        System.out.println(file.getName());
+        System.out.println(file.getAbsolutePath());
+        try {
+            System.out.println(file.getCanonicalPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //parseXls(file);
     }
 
     private static void parseXls(File file) {

@@ -2,3 +2,8 @@
 /algorithms/target/
 /codewars/target/
 /sandbox/target/
+
+/.idea/sonarlint/issuestore/index.pb
+/sandbox/src/main/resources/test.mp4
+/sandbox/src/main/resources/testXls.xls
+/sandbox/src/main/resources/testXlsx.xlsx
