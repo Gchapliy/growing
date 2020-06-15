@@ -1,4 +1,4 @@
-package xcelParser;
+package excelParser;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -11,7 +11,6 @@ import org.apache.poi.ss.usermodel.Row;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class XlsParser {
     public static void main(String[] args) {
