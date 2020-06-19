@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.nio.file.Files;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,27 +25,8 @@ public class CryptoSandbox {
     private static byte[] key;
 
     public static void main(String[] args) {
-        /*final String secretKey = "ssshhhhhhhhhhh";
 
-        String originalString = "howtodoinjava.comasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" +
-                "asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" +
-                "asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsss";
-        String encryptedString = encrypt(originalString, secretKey);
-        try {
-            OutputStream os = new FileOutputStream("GeneratedKey.key");
-            os.write(encryptedString.getBytes());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String decryptedString = decrypt(encryptedString, secretKey);
-
-        System.out.println(originalString);
-        System.out.println(encryptedString);
-        System.out.println(decryptedString);*/
-
-        encryptFileWithApachePoi(new File("C:\\Users\\Hryhorii\\Desktop\\1.xlsx"));
+        System.out.println(encodeFileToBase64("C:\\Users\\Hryhorii\\Desktop\\Key-6.dat"));
     }
 
     private static void setKey(String myKey) {
@@ -108,8 +90,8 @@ public class CryptoSandbox {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
-             myExcelBook.write(bos);
+
+            myExcelBook.write(bos);
 
             encrypted = encryptBytes(bos.toByteArray(), "u*@62vY5~bpK.b%!");
         } catch (FileNotFoundException e) {
@@ -118,7 +100,7 @@ public class CryptoSandbox {
             e.printStackTrace();
         }
 
-        try (FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/Encrypted.edb")){
+        try (FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/Encrypted.edb")) {
             fos.write(encrypted);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -128,34 +110,41 @@ public class CryptoSandbox {
     }
 
     public static void encryptFileWithApachePoi(File file) {
-            POIFSFileSystem fs = new POIFSFileSystem();
-            EncryptionInfo info = new EncryptionInfo(EncryptionMode.agile);
-            // EncryptionInfo info = new EncryptionInfo(EncryptionMode.agile, CipherAlgorithm.aes192, HashAlgorithm.sha384, -1, -1, null);
-            Encryptor enc = info.getEncryptor();
-            enc.confirmPassword("foobaa");
-            // Read in an existing OOXML file and write to encrypted output stream
-            // don't forget to close the output stream otherwise the padding bytes aren't added
-            try (OPCPackage opc = OPCPackage.open(file, PackageAccess.READ_WRITE);
-                 OutputStream os = enc.getDataStream(fs)) {
-                opc.save(os);
-            } catch (GeneralSecurityException e) {
-                e.printStackTrace();
-            } catch (InvalidFormatException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            // Write out the encrypted version
-            try (FileOutputStream fos = new FileOutputStream("report.xlsx")) {
-                fs.writeFilesystem(fos);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        POIFSFileSystem fs = new POIFSFileSystem();
+        EncryptionInfo info = new EncryptionInfo(EncryptionMode.agile);
+        // EncryptionInfo info = new EncryptionInfo(EncryptionMode.agile, CipherAlgorithm.aes192, HashAlgorithm.sha384, -1, -1, null);
+        Encryptor enc = info.getEncryptor();
+        enc.confirmPassword("foobaa");
+        // Read in an existing OOXML file and write to encrypted output stream
+        // don't forget to close the output stream otherwise the padding bytes aren't added
+        try (OPCPackage opc = OPCPackage.open(file, PackageAccess.READ_WRITE);
+             OutputStream os = enc.getDataStream(fs)) {
+            opc.save(os);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (InvalidFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Write out the encrypted version
+        try (FileOutputStream fos = new FileOutputStream("report.xlsx")) {
+            fs.writeFilesystem(fos);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
-    public static void decryptFile(File file){
 
+    public static String encodeFileToBase64(String fileName) {
+        File file = new File(fileName);
+        try {
+            byte[] fileContent = Files.readAllBytes(file.toPath());
+            return Base64.getEncoder().encodeToString(fileContent);
+        } catch (IOException e) {
+            throw new IllegalStateException("could not read file " + file, e);
+        }
     }
 }
