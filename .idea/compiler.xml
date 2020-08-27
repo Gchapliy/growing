@@ -13,10 +13,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
-      <module name="algorithms" target="1.8" />
       <module name="codewars" target="1.8" />
-      <module name="growing" target="1.8" />
-      <module name="sandbox" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
