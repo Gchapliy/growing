@@ -5,10 +5,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/C", "cd " + path, " & Start StartAsConsole.bat");
-        pb.redirectErrorStream(true);
+
 
         try {
+            ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/C", "cd " + path, " & Start StartAsConsole.bat");
+            pb.redirectErrorStream(true);
             Process process = pb.start();
             process.waitFor();
         } catch (Exception e) {
