@@ -7,13 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="sandbox" />
         <module name="algorithms" />
         <module name="codewars" />
-        <module name="sandbox" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8">
-      <module name="codewars" target="1.8" />
+    <bytecodeTargetLevel target="9">
+      <module name="codewars" target="9" />
     </bytecodeTargetLevel>
   </component>
 </project>
