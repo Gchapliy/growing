@@ -1,6 +1,7 @@
 package katas;
 
-import java.util.Arrays;
+import java.math.BigInteger;
+import java.util.*;
 
 /**
  * A *Hamming number* is a positive integer of the form 2i3j5k, for some non-negative integers i, j, and k.
@@ -19,51 +20,31 @@ import java.util.Arrays;
  * Your code should be able to compute all of the smallest 5,000 (Clojure: 2000) Hamming numbers without timing out.
  */
 public class HammingNumber {
-    private static boolean[] isRight = new boolean[2];
-    private static int pointer = 0;
 
     public static void main(String[] args) {
-        System.out.println(hamming(1000));
+       System.out.println(hamming(2000));
     }
 
-    public static long hamming(int n) {
-        int i = 0;
-        int j = 0;
+    private static BigInteger THREE = BigInteger.valueOf(3);
+    private static BigInteger FIVE = BigInteger.valueOf(5);
 
-        while (j < n) {
-            i++;
+    private static void updateFrontier(BigInteger x,
+                                       PriorityQueue<BigInteger> pq) {
+        pq.offer(x.shiftLeft(1));
+        pq.offer(x.multiply(THREE));
+        pq.offer(x.multiply(FIVE));
+    }
 
-            if (i <= pointer) {
-                if (isRight[i - 1]) {
-                    j++;
-                }
-                continue;
-            }
-            if (isHamming(i, i, isRight)) {
-                j++;
-                isRight[pointer] = true;
-            }
-
-            if (i > pointer) {
-                pointer++;
-                if (pointer > isRight.length - 1) {
-                    isRight = Arrays.copyOf(isRight, (int) (isRight.length * 1.5));
-                }
-            }
+    public static BigInteger hamming(int n) {
+        PriorityQueue<BigInteger> frontier = new PriorityQueue<>();
+        updateFrontier(BigInteger.ONE, frontier);
+        BigInteger lowest = BigInteger.ONE;
+        for (int i = 1; i < n; i++) {
+            lowest = frontier.poll();
+            while (frontier.peek().equals(lowest))
+                frontier.poll();
+            updateFrontier(lowest, frontier);
         }
-
-        return i;
-    }
-
-    public static boolean isHamming(int n, int target, boolean[] isRight) {
-        if (n == 1) return true;
-
-        if (n < target) return isRight[n - 1];
-
-        if (n % 2 == 0) return isHamming(n / 2, target, isRight);
-        if (n % 3 == 0) return isHamming(n / 3, target, isRight);
-        if (n % 5 == 0) return isHamming(n / 5, target, isRight);
-
-        return false;
+        return lowest;
     }
 }
